@@ -47,25 +47,34 @@ const crear = async (req, res) =>{
 
 const lista = async (req, res) =>{
 
-    try{
-
-        let consulta = await Articulo.find()
-                        .sort({fecha: -1}).exec();
-
-        res.status(200).json({
+    try {
+        let consulta = Articulo.find().sort({ fecha: -1 });
+      
+        if (req.params.ultimos) {
+          consulta = consulta.limit(6);
+        }
+      
+        const resultado = await consulta.exec();
+      
+        if (resultado.length > 0) {
+          res.status(200).json({
             status: "success",
-            articulo: consulta,
+            total: resultado.length,
+            articulo: resultado,
             mensaje: "Articulo encontrado con exito !!"
-        });
-
-
-    }catch(error){
-        return res.status(400).json({
+          });
+        } else {
+          res.status(404).json({
             status: "error",
             mensaje: "No se encontraron articulos !!"
+          });
+        }
+    }catch (error) {
+        return res.status(500).json({
+          status: "error",
+          mensaje: "Error en el servidor"
         });
     }
-
 }
 
 const listarUno = async (req, res) =>{

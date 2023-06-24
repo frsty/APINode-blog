@@ -17,7 +17,7 @@ const subidas = multer({storage: storage});
 
 
 ruta.post("/crear", ArticuloControlador.crear);
-ruta.get("/articulos", ArticuloControlador.lista);
+ruta.get("/articulos/:ultimos?", ArticuloControlador.lista);
 ruta.get("/articulo/:id", ArticuloControlador.listarUno);
 ruta.delete("/articulo/:id", ArticuloControlador.eliminar);
 ruta.put("/articulo/:id", ArticuloControlador.actualizar);
