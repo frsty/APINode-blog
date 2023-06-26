@@ -46,8 +46,10 @@ const crear = async (req, res) =>{
 }
 
 const lista = async (req, res) =>{
-
+    
     try {
+
+
         let consulta = Articulo.find().sort({ fecha: -1 });
       
         if (req.params.ultimos) {
