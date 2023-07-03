@@ -244,7 +244,6 @@ const buscador = async (req, res) =>{
         // Find OR
         let articuloBuscado = await Articulo.find({"$or":[
             {"titulo": {"$regex": busqueda, "$options": "i"}},
-            {"contenido": {"$regex": busqueda, "$options": "i"}},
             {"autor": {"$regex": busqueda, "$options": "i"}},
         ]})
         .sort({fecha: -1});
